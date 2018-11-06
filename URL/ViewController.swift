@@ -9,10 +9,19 @@
 import UIKit
 
 class ViewController: UIViewController {
+    
+    let url = URL(string: "https://api.nasa.gov/planetary/apod?date=2005-2-22&api_key=DEMO_KEY")!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+
+        let task = URLSession.shared.dataTask(with: url, completionHandler: { data, _, _ in
+            guard let data = data else { return }
+            print(#function, data)
+            guard let text = String(data: data, encoding: .utf8) else { return }
+            print(#function, text)
+        })
+        task.resume()
     }
 
 
